@@ -1,0 +1,39 @@
+.navbar {
+    background-color: rgb(51, 71, 114);
+}
+
+.navbar-nav,
+.mr-auto {
+flex: 1;
+margin: auto !important;
+display: flex;
+justify-content: space-around;
+}
+
+.nav-link {
+    font-weight: 500;
+    font-size: large;
+    color: white;
+}
+
+.nav-item > a:hover {
+    color: rgb(0, 3, 3)!important;
+  }
+
+.navbar-toggler {
+    background-color: rgb(84, 119, 119);
+}
+.nav-item{
+    display: flex;
+    align-items: center;
+}
+
+.nav-number {   
+        color: #d16324;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        text-align: center;
+        font-size: large;
+        background-color: rgb(22, 43, 83);
+  }

@@ -1,0 +1,13 @@
+.card{
+  
+    background-color: aquamarine;
+    min-height: 25rem;
+  margin-top: 25px;
+  margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card-body{
+    margin: 10px;
+}

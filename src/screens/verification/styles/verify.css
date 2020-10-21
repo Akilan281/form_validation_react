@@ -1,0 +1,14 @@
+
+
+.user-input{
+    /* display: flex; */
+}
+.input1{
+    margin: 5px;
+    height: 55px;
+    width: 55px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    background-color: rgb(199, 185, 185);
+}

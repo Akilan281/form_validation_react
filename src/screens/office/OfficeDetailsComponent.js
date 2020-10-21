@@ -31,8 +31,13 @@ function OfficeDetailsComponent(props) {
         }
     }
 
-    function handleCheck() {
-        setCheckbox(true)
+    function handleCheck(e) {
+        if (e.target.checked) {
+            setCheckbox(true)
+        } else {
+            setCheckbox(false)
+        }
+
     }
 
     function handleVerify(e) {
@@ -86,8 +91,8 @@ function OfficeDetailsComponent(props) {
     }
     return (location.state != null ?
         <div className='container-fluid formbox'>
-            <form className="form-container ">
-            <div className='form-group'>
+            <div className="form-container ">
+                <div className='form-group'>
                     <h2 className='form-head'>Add Your Company Details </h2>
                 </div>
                 <div className='form-group'>
@@ -110,13 +115,15 @@ function OfficeDetailsComponent(props) {
                     <input placeholder="Enter your Experience" onChange={(e) => { handleInput(e.target.value) }} type="number" className="input form-control" />
                 </div>
                 <div className="form-group">
-                    <input type="checkbox" onChange={handleCheck} defaultChecked={checkboxset} /><span><a> I accept the <a className="text-wanted">Terms and Conditions</a></a></span>
+                    <input type="checkbox" onChange={(e) => handleCheck(e)} defaultChecked={checkboxset} /><span><a> I accept the <a className="text-wanted">Terms and Conditions</a></a></span>
                 </div>
-
                 <div className=" form-group">
-                    <button className="btn btn-light" onClick={() => props.history.goBack()}>Back</button><span> <button className="btn btn-next" onClick={(e) => handleVerify(e)}>Send OTP</button></span>
+                    <button className="btn btn-light" onClick={() => props.history.goBack()}>Back</button>
+                    <span>
+                        <button className="btn btn-next" onClick={(e) => handleVerify(e)}>Send OTP</button>
+                    </span>
                 </div>
-            </form>
+            </div>
         </div > : null
     )
 }

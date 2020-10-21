@@ -20,27 +20,34 @@ function VerificationComponent(props) {
 
         //Focus next input
         if (element.nextElementSibling) {
-            element.nextElementSibling.focus();            
+            element.nextElementSibling.focus();
         }
-    
+
     };
 
     function handleverify(e) {
         e.preventDefault()
-        let userDetails = []
-        let userInfo = location.state
-        userDetails.push(userInfo)
-        localStorage.setItem(LOCAL_STORAGE.USER_DETAILS, JSON.stringify(userDetails))
-        console.log("userDetails", userDetails)
-        props.history.push({
-            pathname: SCREEN.SUCCESS,
-            state: userDetails
-        });
+        let otp = Otp;
+        if (otp == "") {
+            alert("enter OTP")
+        }
+        else {
+            let userDetails = []
+            let userInfo = location.state
+            userDetails.push(userInfo)
+            localStorage.setItem(LOCAL_STORAGE.USER_DETAILS, JSON.stringify(userDetails))
+            console.log("userDetails", userDetails)
+            props.history.push({
+                pathname: SCREEN.SUCCESS,
+                state: userDetails
+            });
+        }
+
     }
     return (
         location.state != null ?
             <div className='container-fluid formbox'>
-                <form className="form-container">
+                <div className="form-container">
                     <div className='form-group'>
                         <h2 className='form-head'>Email Verification</h2>
                     </div>
@@ -66,16 +73,13 @@ function VerificationComponent(props) {
                                         )
                                     })
                                 }
-
                             </div>
                         </div>
                     </div>
                     <div className="form-group">
                         <button className="btn btn-light" onClick={() => props.history.goBack()}>Back</button><span> <button className="btn  btn-next" onClick={(e) => { handleverify(e) }}>Verify</button></span>
                     </div>
-
-
-                </form>
+                </div>
             </div>
             : null
     )

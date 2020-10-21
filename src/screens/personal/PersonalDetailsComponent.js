@@ -17,12 +17,12 @@ function PersonalDetailsComponent(props) {
     function handleUser(value) {
         setUserName(value)
     }
-function handleGender(e){
-  
+    function handleGender(e) {
+
         setGender(e.target.value)
         console.log(e.target.value)
-   
-}
+
+    }
     function handleCountryState(val, type) {
         if (type === "country") {
             setCountry(val)
@@ -52,10 +52,10 @@ function handleGender(e){
         } else if (phone.length < 10) {
             alert('Please enter valid number')
         } else
-            navigateOfficepage(user,sex, mobile, nation, state)
+            navigateOfficepage(user, sex, mobile, nation, state)
     }
 
-    function navigateOfficepage(user,sex, mobile, nation, state) {
+    function navigateOfficepage(user, sex, mobile, nation, state) {
         var getUserDetails = localStorage.getItem(LOCAL_STORAGE.USER_DETAILS);
         var parseUserDetails = JSON.parse(getUserDetails);
         var userdetails = parseUserDetails != null ? parseUserDetails : [];
@@ -79,7 +79,7 @@ function handleGender(e){
     }
     return (
         <div className='container-fluid formbox'>
-            <form className="form-container ">
+            <div className="form-container ">
                 <div className='form-group'>
                     <h2 className='form-head'> Add Your Personal Details</h2>
 
@@ -89,11 +89,11 @@ function handleGender(e){
                     <input placeholder="Enter Fullname" onChange={(e) => { handleUser(e.target.value) }} type="email" className="input form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
                 </div>
                 <div className="form-group">
-                    <input type="radio" id="radio1" name="radios" value="male"  onChange={ handleGender} />
+                    <input type="radio" id="radio1" name="radios" value="male" onChange={handleGender} />
                     <label for="radio1">Male</label>
-                    <input type="radio" id="radio2" name="radios" value="female" onChange={ handleGender} />
+                    <input type="radio" id="radio2" name="radios" value="female" onChange={handleGender} />
                     <label for="radio2">Female</label>
-                    <input type="radio" id="radio3" name="radios" value="other" onChange={ handleGender} />
+                    <input type="radio" id="radio3" name="radios" value="other" onChange={handleGender} />
                     <label for="radio3">Other</label>
                 </div>
                 <div className="form-group">
@@ -129,9 +129,9 @@ function handleGender(e){
                     </button>
                 </div>
                 <div className="form-group">
-                <p className='form-head'>Already have an account? <a href="">Log in</a></p>
+                    <p className='form-head'>Already have an account? <a href="">Log in</a></p>
                 </div>
-            </form>
+            </div>
         </div>
     )
 }

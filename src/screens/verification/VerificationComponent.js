@@ -11,10 +11,12 @@ function VerificationComponent(props) {
     useEffect(() => {
         if (location.state == null) {
             props.history.goBack()
+
         }
     }, [])
     const handleChange = (element, index) => {
         if (isNaN(element.value)) return false;
+        console.log("value", element.value)
 
         setOtp([...Otp.map((d, idx) => (idx === index) ? element.value : d)])
 
@@ -27,11 +29,10 @@ function VerificationComponent(props) {
 
     function handleverify(e) {
         e.preventDefault()
-        let otp = Otp;
-        if (otp == "") {
-            alert("enter OTP")
-        }
-        else {
+        let otp = Otp.join('');
+        if (otp.length != 5) {
+            alert("enter valid OTP")
+        } else {
             let userDetails = []
             let userInfo = location.state
             userDetails.push(userInfo)
@@ -44,8 +45,10 @@ function VerificationComponent(props) {
         }
 
     }
+
     return (
         location.state != null ?
+
             <div className='container-fluid formbox'>
                 <div className="form-container">
                     <div className='form-group'>

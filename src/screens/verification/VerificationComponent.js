@@ -2,18 +2,20 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { LOCAL_STORAGE, SCREEN } from '../../common/Constant'
 import './styles/verify.css'
+import { connect } from 'react-redux'
+import { formList } from '../../redux/action/Action';
 
 function VerificationComponent(props) {
     let location = useLocation()
 
     const [Otp, setOtp] = useState(new Array(5).fill(""));
 
-    useEffect(() => {
-        if (location.state == null) {
-            props.history.goBack()
+    // useEffect(() => {
+    //     if (location.state == null) {
+    //         props.history.goBack()
 
-        }
-    }, [])
+    //     }
+    // }, [])
     const handleChange = (element, index) => {
         if (isNaN(element.value)) return false;
         console.log("value", element.value)
@@ -34,20 +36,21 @@ function VerificationComponent(props) {
             alert("enter valid OTP")
         } else {
             let userDetails = []
-            let userInfo = location.state
+            let userInfo = props.formlist
             userDetails.push(userInfo)
             localStorage.setItem(LOCAL_STORAGE.USER_DETAILS, JSON.stringify(userDetails))
             console.log("userDetails", userDetails)
             props.history.push({
                 pathname: SCREEN.SUCCESS,
-                state: userDetails
             });
+
+            props.formdata(userDetails)
         }
 
     }
 
     return (
-        location.state != null ?
+        //location.state != null ?
 
             <div className='container-fluid formbox'>
                 <div className="form-container">
@@ -84,8 +87,25 @@ function VerificationComponent(props) {
                     </div>
                 </div>
             </div>
-            : null
+          //  : null
     )
 }
 
-export default VerificationComponent
+const mapStateToProps = ({ FormReducerComponent }) => {
+
+    console.log("formlist",FormReducerComponent.formlist)
+    return {
+
+        formlist : FormReducerComponent.formlist
+
+    }
+
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        formdata: (data) => (dispatch(formList(data))),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(VerificationComponent)

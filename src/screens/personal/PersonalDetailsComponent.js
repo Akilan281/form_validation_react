@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './styles/componentstyle.css'
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
-// import PhoneInput from 'react-phone-number-input/input'
-// import flags from 'react-phone-number-input/flags'
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { SCREEN, LOCAL_STORAGE } from '../../common/Constant';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux'
+import { formList } from '../../redux/action/Action';
+
+
+
 function PersonalDetailsComponent(props) {
     const [username, setUserName] = useState('')
     const [gender, setGender] = useState('')
@@ -14,11 +16,22 @@ function PersonalDetailsComponent(props) {
     const [region, setRegion] = useState('')
     const [phone, setPhone] = useState('')
 
+
+    useEffect(() => {
+        if (Object.keys(props.formlist).length > 0 && username == '') {
+            var object = props.formlist;
+            setUserName(object.name);
+            setGender(object.gend);
+            setCountry(object.country);
+            setRegion(object.state);
+            setPhone(object.mobile);
+        }
+    }, [props.formlist])
+
     function handleUser(value) {
         setUserName(value)
     }
     function handleGender(e) {
-
         setGender(e.target.value)
         console.log(e.target.value)
 
@@ -72,9 +85,8 @@ function PersonalDetailsComponent(props) {
             }
             props.history.push({
                 pathname: SCREEN.OFFICE,
-                state: userinfo
             });
-            console.log("userinfo", userinfo)
+            props.formdata(userinfo)
         }
     }
     return (
@@ -86,14 +98,14 @@ function PersonalDetailsComponent(props) {
                 </div>
                 <div className="form-group">
                     <label >Full name</label>
-                    <input placeholder="Enter Fullname" onChange={(e) => { handleUser(e.target.value) }} type="email" className="input form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                    <input placeholder="Enter Fullname" value={username} onChange={(e) => { handleUser(e.target.value) }} type="email" className="input form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
                 </div>
                 <div className="form-group">
-                    <input type="radio" id="radio1" name="radios" value="male" onChange={handleGender} />
+                    <input type="radio" id="radio1" name="radios" value="male" onChange={handleGender} checked={gender == "male"} />
                     <label for="radio1">Male</label>
-                    <input type="radio" id="radio2" name="radios" value="female" onChange={handleGender} />
+                    <input type="radio" id="radio2" name="radios" value="female" onChange={handleGender} checked={gender == "female"} />
                     <label for="radio2">Female</label>
-                    <input type="radio" id="radio3" name="radios" value="other" onChange={handleGender} />
+                    <input type="radio" id="radio3" name="radios" value="other" onChange={handleGender} checked={gender == "other"} />
                     <label for="radio3">Other</label>
                 </div>
                 <div className="form-group">
@@ -115,11 +127,14 @@ function PersonalDetailsComponent(props) {
                 </div>
                 <div className="form-group">
                     <label>Mobile</label>
+                    {console.log('phone', phone)}
                     <PhoneInput
+                        value={phone.toString()}
                         style={{
                             inputClass: "input form-control"
                         }}
-                        country={country ? country.substring(0, 2).toLocaleLowerCase() : 'in'}
+                        country = {country}
+                        // country={phone == '' && country ? country.substring(0, 2).toLocaleLowerCase() : 'in'}
                         onChange={(e) => handlephone(e)}
                     />
                 </div>
@@ -135,5 +150,18 @@ function PersonalDetailsComponent(props) {
         </div>
     )
 }
+const mapStateToProps = ({ FormReducerComponent }) => {
+    return {
 
-export default PersonalDetailsComponent
+        formlist: FormReducerComponent.formlist
+
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        formdata: (data) => (dispatch(formList(data))),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PersonalDetailsComponent)

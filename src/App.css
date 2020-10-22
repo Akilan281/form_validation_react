@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+.profile-image{
+ width: 80px; 
+ height: 80px; 
+ margin-right:20px;
+ border-radius: 50%;
+ border: 1px solid #a1a1a1;
+}
+.upload-button{
+   position: absolute;
+    opacity: 0;
+    margin-top: 23px;
+}

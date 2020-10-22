@@ -7,9 +7,12 @@ import NavBarComponent from './navbar/NavBarComponent'
 import VerificationComponent from './verification/VerificationComponent'
 import Footer from './footer/Footer'
 import Success from './success /Success'
+import { Provider } from 'react-redux'
+import store from  '../redux/store/Store'
 
 function AppRouter() {
     return (
+        <Provider store={store}>
         <Router>
             <NavBarComponent />
             <Switch>
@@ -20,6 +23,7 @@ function AppRouter() {
             </Switch>
             <Footer />
         </Router>
+        </Provider>
     )
 }
 

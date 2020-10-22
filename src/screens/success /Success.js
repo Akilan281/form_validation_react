@@ -2,14 +2,15 @@ import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { SCREEN } from '../../common/Constant';
 import './styles/success.css'
+import { connect } from 'react-redux'
 
 function Success(props) {
     let location = useLocation();
 
-    const [userlist, setUserlist] = useState(location.state)
+    const [userlist, setUserlist] = useState(Object.assign([], props.formlist))
     return (
         <div className='container'>
-            {console.log("userlist", location.state)}
+            {console.log("userlist", userlist)}
             { userlist.map((item) => {
                 return (
 
@@ -36,5 +37,17 @@ function Success(props) {
         </div>
     )
 }
+const mapStateToProps = ({ FormReducerComponent }) => {
 
-export default Success
+    console.log("formlist1",FormReducerComponent.formlist)
+    return {
+
+        formlist : FormReducerComponent.formlist
+
+    }
+
+}
+
+
+
+export default connect(mapStateToProps, null)(Success)

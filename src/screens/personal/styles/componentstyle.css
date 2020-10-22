@@ -79,3 +79,7 @@ input[type=radio]:checked + label {
 .text-wanted{
     color:#d16324 ;
 }
+
+.upload-button{
+    color:#d16324
+}
